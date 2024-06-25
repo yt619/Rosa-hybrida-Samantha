@@ -14,9 +14,9 @@ set -evx
 minimap2 -cx map-ont -t 20 merge.fa $i > $i.paf
 ##Filtering
 awk -v OFS="\t" '($12>0){print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$23}' $i.paf > $i.paf.filter
-##To run the pipeline type
+##To run the pipeline type (https://github.com/zhengdafangyuan/HiPore-C)
 time sh ./porec_pipeline/Fragment_Annotation_linux.sh ./porec_pipeline/Read_Fragment_Annotation.py 02_paf2bam merge.fa $i $i.paf.filter DpnII.vd.fragments.csv ./porec_pipeline/minimap2_subreads_remapping.sh ./porec_pipeline/multichrom_check.sh
-##Generate pairwise contact matrix
+##Generate pairwise contact matrix (https://github.com/zhengdafangyuan/HiPore-C)
 python ./porec_pipeline/Generate_Pairwise_contact_juicematrix.py -p ./02_paf2bam/tmpdir/$i/Read_Align_Fragment_RvdF.csv -o ./02_paf2bam/tmpdir/$i -s 0 -t 20 -c 1000000
 
 ##Converts the contact matrix file to BAM file format, as LACHESIS requires input files in BAM format.
